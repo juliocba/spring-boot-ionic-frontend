@@ -11,6 +11,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomePage {
 
+  passwordType: string = 'password';
+  passwordShown: boolean = false;
+
   creds: CredenciaisDTO = {
     email: "",
     senha: ""
@@ -48,6 +51,16 @@ export class HomePage {
 
   signup() {
     this.navCtrl.push('SignupPage');
+  }
+
+  togglePassword() {
+    if (this.passwordShown) {
+      this.passwordShown = false;
+      this.passwordType = 'password';
+    } else {
+      this.passwordShown = true;
+      this.passwordType = 'text';
+    }
   }
 
 }
