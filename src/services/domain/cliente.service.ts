@@ -42,7 +42,7 @@ export class ClienteService {
         let pictureBlob = this.imageUtilService.dataUriToBlob(picture);
         let formData: FormData = new FormData();
         formData.set('file', pictureBlob, 'file.png');
-        return this.http.post(`${API_CONFIG.baseUrl}/clientes`,
+        return this.http.post(`${API_CONFIG.baseUrl}/clientes/picture`,
             formData,
             {
                 observe: 'response',
