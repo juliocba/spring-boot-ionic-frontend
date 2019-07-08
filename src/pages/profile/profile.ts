@@ -26,6 +26,10 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  private loadData() {
     let localUser = this.storage.getLocalUser();
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
@@ -62,13 +66,24 @@ export class ProfilePage {
     }
 
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
       this.picture = 'data:image/png;base64,' + imageData;
       this.cameraOn = false;
     }, (err) => {
-      // Handle error
     });
+  }
+
+  sendPicture() {
+    this.clienteService.uploadPicture(this.picture)
+      .subscribe(response => {
+        this.picture = null;
+        this.loadData();
+      },
+        error => { }
+      );
+  }
+
+  cancel() {
+    this.picture = null;
   }
 
 }
